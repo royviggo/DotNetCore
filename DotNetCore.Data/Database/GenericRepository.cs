@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCore.Data.Database
 {
-    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, new()
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity, new()
     {
         private readonly DbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;

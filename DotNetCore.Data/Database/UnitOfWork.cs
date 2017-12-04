@@ -6,15 +6,16 @@ namespace DotNetCore.Data.Database
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        public DotNetCoreContext DbContext { get; }
+        private readonly DotNetCoreContext _context;
 
         public UnitOfWork(IDbFactory dbFactory)
         {
-            DbContext = dbFactory.GetDbContext();
+            _context = dbFactory.GetDbContext();
         }
+        public DotNetCoreContext DbContext => _context;
 
-        private IRepository<Person> _personRepository;
-        public IRepository<Person> PersonRepository => _personRepository ?? (_personRepository = new GenericRepository<Person>(DbContext));
+        private IGenericRepository<Person> _personRepository;
+        public IGenericRepository<Person> PersonRepository => _personRepository ?? (_personRepository = new GenericRepository<Person>(DbContext));
 
         public void Save()
         {

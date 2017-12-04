@@ -4,7 +4,7 @@ namespace DotNetCore.Data.Interfaces
 {
     public interface IUnitOfWork
     {
-        IRepository<Person> PersonRepository { get; }
+        IGenericRepository<Person> PersonRepository { get; }
 
         void Save();
         void Dispose();

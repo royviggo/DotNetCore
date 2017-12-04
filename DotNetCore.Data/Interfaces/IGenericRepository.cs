@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DotNetCore.Data.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : class, IEntity, new()
+    public interface IGenericRepository<TEntity> where TEntity : class, IEntity, new()
     {
         void Add(TEntity entity);
         void Update(TEntity entity);
