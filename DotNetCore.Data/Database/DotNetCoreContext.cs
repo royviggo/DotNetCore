@@ -5,6 +5,14 @@ namespace DotNetCore.Data.Database
 {
     public class DotNetCoreContext : DbContext
     {
+        public DotNetCoreContext()
+        {
+        }
+
+        public DotNetCoreContext(DbContextOptions<DotNetCoreContext> options) : base(options)
+        {
+        }
+
         public DbSet<Person> Persons { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
