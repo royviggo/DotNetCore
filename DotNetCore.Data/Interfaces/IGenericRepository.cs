@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace DotNetCore.Data.Interfaces
 {
@@ -16,6 +19,9 @@ namespace DotNetCore.Data.Interfaces
         void SetEntityState(TEntity entity, EntityState state);
         TEntity GetOriginal(TEntity entity);
 
-        IEnumerable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetList<TResult>(Expression<Func<TEntity, bool>> predicate = null,
+                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
     }
 }

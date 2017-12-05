@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using DotNetCore.Data.Interfaces;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using DotNetCore.Data.Interfaces;
 
 namespace DotNetCore.Data.Database
 {
@@ -85,10 +86,27 @@ namespace DotNetCore.Data.Database
             return original;
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
-            return _dbSet.AsEnumerable();
+            return _dbSet;
         }
 
+        public IQueryable<TEntity> GetList<TResult>(Expression<Func<TEntity, bool>> predicate = null,
+                                                    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                                    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (include != null)
+                query = include(query);
+
+            if (predicate != null)
+                query = query.Where(predicate);
+
+            if (orderBy != null)
+                return orderBy(query);
+            else
+                return query;
+        }
     }
 }
