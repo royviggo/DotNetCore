@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Data", "DotNetCore.Data\DotNetCore.Data.csproj", "{F50EB0B6-63DE-4947-858C-8CF35A0DF5B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore.Data", "DotNetCore.Data\DotNetCore.Data.csproj", "{F50EB0B6-63DE-4947-858C-8CF35A0DF5B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Data.Test", "DotNetCore.Data.Test\DotNetCore.Data.Test.csproj", "{ACE6C39C-73D6-4E63-B610-79009000ACF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F50EB0B6-63DE-4947-858C-8CF35A0DF5B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F50EB0B6-63DE-4947-858C-8CF35A0DF5B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F50EB0B6-63DE-4947-858C-8CF35A0DF5B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACE6C39C-73D6-4E63-B610-79009000ACF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACE6C39C-73D6-4E63-B610-79009000ACF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACE6C39C-73D6-4E63-B610-79009000ACF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACE6C39C-73D6-4E63-B610-79009000ACF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
