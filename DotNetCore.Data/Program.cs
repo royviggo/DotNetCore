@@ -1,6 +1,7 @@
 ﻿using DotNetCore.Data.Database;
 using DotNetCore.Data.Entities;
 using DotNetCore.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace DotNetCore
@@ -9,8 +10,12 @@ namespace DotNetCore
     {
         public static void Main()
         {
-            var db = new DotNetCoreContext();
-            var personRepo = new GenericRepository<Person>(db);
+            var options = new DbContextOptionsBuilder<DotNetCoreContext>()
+                .UseSqlite("Data Source=C:\\Privat\\Slekt\\Data\\sqlitetest.sqlite")
+                .Options;
+
+            var dbFactory = new DbFactory(options);
+            var personRepo = new GenericRepository<Person>(dbFactory.GetDbContext());
 
             foreach (var person in personRepo.GetAll())
             {
