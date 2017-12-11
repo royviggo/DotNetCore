@@ -20,8 +20,8 @@ namespace DotNetCore.Data.Interfaces
         TEntity GetOriginal(TEntity entity);
 
         IQueryable<TEntity> GetAll();
-        IQueryable<TEntity> GetList<TResult>(Expression<Func<TEntity, bool>> predicate = null,
-                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
+        IQueryable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate = null,
+                                    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                   Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
     }
 }
