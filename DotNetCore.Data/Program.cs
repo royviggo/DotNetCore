@@ -1,6 +1,4 @@
 ﻿using DotNetCore.Data.Database;
-using DotNetCore.Data.Entities;
-using DotNetCore.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 

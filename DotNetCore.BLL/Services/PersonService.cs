@@ -1,11 +1,7 @@
 ﻿using DotNetCore.BLL.Interfaces;
-using DotNetCore.Data.Database;
 using DotNetCore.Data.Entities;
 using DotNetCore.Data.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq;
