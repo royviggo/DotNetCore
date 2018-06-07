@@ -14,10 +14,9 @@ namespace DotNetCore
                 .UseSqlite("Data Source=C:\\Privat\\Slekt\\Data\\sqlitetest.sqlite")
                 .Options;
 
-            var dbFactory = new DbFactory(options);
-            var personRepo = new GenericRepository<Person>(dbFactory.GetDbContext());
+            var unitOfWork = new UnitOfWork(new DbFactory(options));
 
-            foreach (var person in personRepo.GetAll())
+            foreach (var person in unitOfWork.PersonRepository.GetAll())
             {
                 Console.WriteLine("{0}, {1} ({2}-{3}) {4}, {5}", person.LastName, person.FirstName, person.BornYear, person.DeathYear, person.Gender, person.Status);
             }
