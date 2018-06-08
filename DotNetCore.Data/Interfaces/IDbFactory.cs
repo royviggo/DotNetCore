@@ -4,6 +4,7 @@ namespace DotNetCore.Data.Interfaces
 {
     public interface IDbFactory
     {
+        void Dispose();
         DotNetCoreContext GetDbContext();
     }
 }   

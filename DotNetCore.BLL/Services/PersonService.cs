@@ -9,13 +9,18 @@ using System.Linq.Expressions;
 
 namespace DotNetCore.BLL.Services
 {
-    public class PersonService : IPersonService
+    public class PersonService : IPersonService, IDisposable
     {
         private readonly IUnitOfWork _unitOfWork;
 
         public PersonService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public void Dispose()
+        {
+            _unitOfWork.Dispose();
         }
 
         public void Create(Person person)
@@ -49,6 +54,11 @@ namespace DotNetCore.BLL.Services
         public Person GetById(int id)
         {
             return _unitOfWork.PersonRepository.GetById(id);
+        }
+
+        public Person GetByIdNoTracking(int id)
+        {
+            return _unitOfWork.PersonRepository.GetByIdNoTracking(id);
         }
 
         public IQueryable<Person> GetAll()

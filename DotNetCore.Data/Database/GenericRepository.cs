@@ -60,6 +60,11 @@ namespace DotNetCore.Data.Database
             return _dbSet.Find(id);
         }
 
+        public TEntity GetByIdNoTracking(int id)
+        {
+            return _dbSet.Where(m => m.Id == id).AsNoTracking().FirstOrDefault();
+        }
+
         public EntityState GetEntityState(TEntity entity)
         {
             return _dbContext.Entry(entity).State;

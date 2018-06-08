@@ -15,6 +15,8 @@ namespace DotNetCore.Data.Interfaces
         TEntity GetById(int id);
         TEntity GetById(string id);
 
+        TEntity GetByIdNoTracking(int id);
+
         EntityState GetEntityState(TEntity entity);
         void SetEntityState(TEntity entity, EntityState state);
         TEntity GetOriginal(TEntity entity);

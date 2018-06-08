@@ -17,6 +17,11 @@ namespace DotNetCore.Data.Database
             _dbContext = new DotNetCoreContext(options);
         }
 
+        public void Dispose()
+        {
+            _dbContext?.Dispose();
+        }
+
         public DotNetCoreContext GetDbContext()
         {
             return _dbContext ?? (_dbContext = new DotNetCoreContext());
@@ -25,11 +30,6 @@ namespace DotNetCore.Data.Database
         public DotNetCoreContext GetDbContext(DbContextOptions<DotNetCoreContext> options)
         {
             return _dbContext ?? (_dbContext = new DotNetCoreContext(options));
-        }
-
-        public void Dispose()
-        {
-            _dbContext?.Dispose();
         }
     }
 }

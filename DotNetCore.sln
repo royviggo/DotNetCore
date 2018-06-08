@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore.Data", "DotNetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore.Data.Test", "DotNetCore.Data.Test\DotNetCore.Data.Test.csproj", "{ACE6C39C-73D6-4E63-B610-79009000ACF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.BLL", "DotNetCore.BLL\DotNetCore.BLL.csproj", "{6BDC9CF8-09E9-422E-8C0F-9DFAF2CBE5C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore.BLL", "DotNetCore.BLL\DotNetCore.BLL.csproj", "{6BDC9CF8-09E9-422E-8C0F-9DFAF2CBE5C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.BLL.Test", "DotNetCore.BLL.Test\DotNetCore.BLL.Test.csproj", "{FB1B49D8-2EF7-4196-BEAB-359B50291692}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{6BDC9CF8-09E9-422E-8C0F-9DFAF2CBE5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BDC9CF8-09E9-422E-8C0F-9DFAF2CBE5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BDC9CF8-09E9-422E-8C0F-9DFAF2CBE5C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB1B49D8-2EF7-4196-BEAB-359B50291692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB1B49D8-2EF7-4196-BEAB-359B50291692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB1B49D8-2EF7-4196-BEAB-359B50291692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB1B49D8-2EF7-4196-BEAB-359B50291692}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
