@@ -1,22 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using DotNetCore.Data.Database;
 using DotNetCore.Data.Enums;
-using DotNetCore.Data.Interfaces;
 
 namespace DotNetCore.Data.Entities
 {
-    public class Person : IEntity, IDisposable
+    public class Person : Entity //IEntity, IDisposable
     {
-        public Person()
-        {
-        }
-
-        public void Dispose()
-        {
-        }
-
-        [Key]
-        public int Id { get; set; }
+        public Person() {}
 
         [MaxLength(255)]
         public string FirstName { get; set; }
@@ -37,9 +27,5 @@ namespace DotNetCore.Data.Entities
         public int? DeathYear { get; set; }
 
         public Status Status { get; set; }
-
-        public DateTime? CreatedDate { get; set; }
-
-        public DateTime? ModifiedDate { get; set; }
     }
 }
