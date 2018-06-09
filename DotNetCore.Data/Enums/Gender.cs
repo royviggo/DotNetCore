@@ -4,13 +4,13 @@ namespace DotNetCore.Data.Enums
 {
     public enum Gender
     {
-        [Display(Name = "Ukjent")]
+        [Display(Name = "Unknown")]
         Unknown = 0,
 
-        [Display(Name = "Mann")]
+        [Display(Name = "Male")]
         Male = 1,
 
-        [Display(Name = "Kvinne")]
+        [Display(Name = "Female")]
         Female = 2,
 
         [Display(Name = "N/A")]

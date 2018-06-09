@@ -4,13 +4,13 @@ namespace DotNetCore.Data.Enums
 {
     public enum Status
     {
-        [Display(Name = "Ukjent")]
+        [Display(Name = "Unknown")]
         Unknown = 0,
 
-        [Display(Name = "Levende")]
+        [Display(Name = "Living")]
         Living = 1,
 
-        [Display(Name = "Død")]
+        [Display(Name = "Deceased")]
         Deceased = 2,
     }
 }
