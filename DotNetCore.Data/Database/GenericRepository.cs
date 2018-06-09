@@ -7,7 +7,7 @@ using DotNetCore.Data.Interfaces;
 
 namespace DotNetCore.Data.Database
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity, new()
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity, IDisposable, new()
     {
         private readonly DbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
@@ -16,6 +16,11 @@ namespace DotNetCore.Data.Database
         {
             _dbContext = db ?? throw new ArgumentNullException(nameof(db));
             _dbSet = db.Set<TEntity>();
+        }
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
         }
 
         public void Add(TEntity entity)

@@ -1,30 +1,34 @@
 using DotNetCore.Data.Database;
 using DotNetCore.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
+using System;
+using Xunit;
 
 namespace DotNetCore.Data.Test
 {
-    [TestFixture]
-    public class DbFactoryTests
+    public class DbFactoryTests : IDisposable
     {
-        [Test]
+        public DbFactoryTests() { }
+
+        public void Dispose() {}
+
+        [Fact]
         public void DbFactory_CreateDbFactory_ReturnsInstance()
         {
             var dbFactory = new DbFactory();
 
-            Assert.IsInstanceOf<IDbFactory>(dbFactory);
+            Assert.IsAssignableFrom<IDbFactory>(dbFactory);
         }
 
-        [Test]
+        [Fact]
         public void DbFactory_GetDbContext_ReturnsDbFactory()
         {
             var dbFactory = new DbFactory();
 
-            Assert.IsInstanceOf<DotNetCoreContext>(dbFactory.GetDbContext());
+            Assert.IsAssignableFrom<DotNetCoreContext>(dbFactory.GetDbContext());
         }
 
-        [Test]
+        [Fact]
         public void DbFactory_ConnectToInMemoryDatabase_ReturnsDbContext()
         {
             var options = new DbContextOptionsBuilder<DotNetCoreContext>()
@@ -32,7 +36,7 @@ namespace DotNetCore.Data.Test
                 .Options;
 
             var dbFactory = new DbFactory(options);
-            Assert.IsInstanceOf<DotNetCoreContext>(dbFactory.GetDbContext());
+            Assert.IsAssignableFrom<DotNetCoreContext>(dbFactory.GetDbContext());
         }
     }
 

@@ -3,23 +3,25 @@ using DotNetCore.Data.Entities;
 using DotNetCore.Data.Interfaces;
 using DotNetCore.Data.Enums;
 using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
+using System;
+using Xunit;
 
 namespace DotNetCore.Data.Test
 {
-    [TestFixture]
-    class UnitOfWorkTests
+    public class UnitOfWorkTests : IDisposable
     {
         private static DbContextOptions<DotNetCoreContext> options = new DbContextOptionsBuilder<DotNetCoreContext>()
             .UseInMemoryDatabase(databaseName: "DotNetCoreDataTestDb")
             .Options;
 
-        private static DbFactory dbFactory = new DbFactory(options);
-        private UnitOfWork unitOfWork = new UnitOfWork(dbFactory);
+        IDbFactory dbFactory;
+        IUnitOfWork unitOfWork;
 
-        [SetUp]
-        public void Setup()
+        public UnitOfWorkTests()
         {
+            dbFactory = new DbFactory(options);
+            unitOfWork = new UnitOfWork(dbFactory);
+
             unitOfWork.PersonRepository.Add(new Person { Id = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
             unitOfWork.PersonRepository.Add(new Person { Id = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
             unitOfWork.PersonRepository.Add(new Person { Id = 3, FirstName = "Bar", LastName = "Tester", Gender = Gender.Male, Status = Status.Living });
@@ -27,34 +29,34 @@ namespace DotNetCore.Data.Test
             unitOfWork.Save();
         }
 
-        [TearDown]
-        public void TearDown()
+        public void Dispose()
         {
             foreach (var person in unitOfWork.PersonRepository.GetAll())
             {
                 unitOfWork.PersonRepository.Delete(person);
             }
             unitOfWork.Save();
+
+            unitOfWork.Dispose();
+            dbFactory.Dispose();
         }
 
-
-        [Test]
+        [Fact]
         public void UnitOfWork_IsInstanceOf_ReturnsIUnitOfWork()
         {
             var unitOfWork = new UnitOfWork(new DbFactory());
 
-            Assert.IsInstanceOf<IUnitOfWork>(unitOfWork);
+            Assert.IsAssignableFrom<IUnitOfWork>(unitOfWork);
         }
 
-        [Test]
+        [Fact]
         public void UnitOfWork_CreatePerson_ReturnsPerson()
         {
             var person = unitOfWork.PersonRepository.GetById(1);
 
-            Assert.IsNotNull(person);
-            Assert.AreEqual(1, person.Id);
-            Assert.AreEqual("Test", person.FirstName);
+            Assert.NotNull(person);
+            Assert.Equal(1, person.Id);
+            Assert.Equal("Test", person.FirstName);
         }
-
     }
 }

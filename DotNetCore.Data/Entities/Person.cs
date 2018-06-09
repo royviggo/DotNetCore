@@ -5,9 +5,13 @@ using DotNetCore.Data.Interfaces;
 
 namespace DotNetCore.Data.Entities
 {
-    public class Person : IEntity
+    public class Person : IEntity, IDisposable
     {
         public Person()
+        {
+        }
+
+        public void Dispose()
         {
         }
 
