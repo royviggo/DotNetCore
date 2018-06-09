@@ -11,12 +11,13 @@ namespace DotNetCore.Data.Test
 {
     public class GenericRepositoryTests : IDisposable
     {
-        private static DbContextOptions<DotNetCoreContext> options = new DbContextOptionsBuilder<DotNetCoreContext>()
-           .UseInMemoryDatabase(databaseName: "DotNetCoreDataTestDb")
+        private DbContextOptions<DotNetCoreContext> options = new DbContextOptionsBuilder<DotNetCoreContext>()
+           .UseInMemoryDatabase(databaseName: "GenericRepositoryTestDb")
            .Options;
-        IDbFactory dbFactory;
-        DotNetCoreContext dbContext;
-        IGenericRepository<Person> personRepository;
+
+        private IDbFactory dbFactory;
+        private DotNetCoreContext dbContext;
+        private IGenericRepository<Person> personRepository;
 
         public GenericRepositoryTests()
         {

@@ -13,12 +13,13 @@ namespace DotNetCore.BLL.Test
 {
     public class PersonServiceTests : IDisposable
     {
-        private static DbContextOptions<DotNetCoreContext> options = new DbContextOptionsBuilder<DotNetCoreContext>()
-           .UseInMemoryDatabase(databaseName: "DotNetCoreDataTestDb")
+        private DbContextOptions<DotNetCoreContext> options = new DbContextOptionsBuilder<DotNetCoreContext>()
+           .UseInMemoryDatabase(databaseName: "PersonServiceTestDb")
            .Options;
-        IPersonService personService;
-        IUnitOfWork unitOfWork;
-        IDbFactory dbFactory;
+
+        private IPersonService personService;
+        private IUnitOfWork unitOfWork;
+        private IDbFactory dbFactory;
 
         public PersonServiceTests()
         {

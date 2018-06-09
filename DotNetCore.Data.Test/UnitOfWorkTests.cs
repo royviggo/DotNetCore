@@ -10,12 +10,12 @@ namespace DotNetCore.Data.Test
 {
     public class UnitOfWorkTests : IDisposable
     {
-        private static DbContextOptions<DotNetCoreContext> options = new DbContextOptionsBuilder<DotNetCoreContext>()
-            .UseInMemoryDatabase(databaseName: "DotNetCoreDataTestDb")
+        private DbContextOptions<DotNetCoreContext> options = new DbContextOptionsBuilder<DotNetCoreContext>()
+            .UseInMemoryDatabase(databaseName: "UnitOfWorkTestDb")
             .Options;
 
-        IDbFactory dbFactory;
-        IUnitOfWork unitOfWork;
+        private IDbFactory dbFactory;
+        private IUnitOfWork unitOfWork;
 
         public UnitOfWorkTests()
         {
@@ -32,9 +32,8 @@ namespace DotNetCore.Data.Test
         public void Dispose()
         {
             foreach (var person in unitOfWork.PersonRepository.GetAll())
-            {
                 unitOfWork.PersonRepository.Delete(person);
-            }
+
             unitOfWork.Save();
 
             unitOfWork.Dispose();
@@ -50,7 +49,7 @@ namespace DotNetCore.Data.Test
         }
 
         [Fact]
-        public void UnitOfWork_CreatePerson_ReturnsPerson()
+        public void UnitOfWork_GetPerson_ReturnsPerson()
         {
             var person = unitOfWork.PersonRepository.GetById(1);
 
