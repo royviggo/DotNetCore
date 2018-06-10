@@ -13,8 +13,17 @@ namespace DotNetCore.Data.Database
 
         public DotNetCoreContext DbContext { get; }
 
+        private IGenericRepository<Event> _eventRepository;
+        public IGenericRepository<Event> EventRepository => _eventRepository ?? (_eventRepository = new GenericRepository<Event>(DbContext));
+
+        private IGenericRepository<EventType> _eventTypeRepository;
+        public IGenericRepository<EventType> EventTypeRepository => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbContext));
+
         private IGenericRepository<Person> _personRepository;
         public IGenericRepository<Person> PersonRepository => _personRepository ?? (_personRepository = new GenericRepository<Person>(DbContext));
+
+        private IGenericRepository<Place> _placeRepository;
+        public IGenericRepository<Place> PlaceRepository => _placeRepository ?? (_placeRepository = new GenericRepository<Place>(DbContext));
 
         public void Save()
         {

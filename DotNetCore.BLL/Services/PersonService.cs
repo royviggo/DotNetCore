@@ -56,10 +56,10 @@ namespace DotNetCore.BLL.Services
             return _unitOfWork.PersonRepository.GetById(id);
         }
 
-        public Person GetByIdNoTracking(int id)
-        {
-            return _unitOfWork.PersonRepository.GetByIdNoTracking(id);
-        }
+        //public Person GetByIdNoTracking(int id)
+        //{
+        //    return _unitOfWork.PersonRepository.GetByIdNoTracking(id);
+        //}
 
         public IQueryable<Person> GetAll()
         {

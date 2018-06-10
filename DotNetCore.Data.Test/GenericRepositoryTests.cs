@@ -25,9 +25,9 @@ namespace DotNetCore.Data.Test
             dbContext = dbFactory.GetDbContext();
             personRepository = new GenericRepository<Person>(dbContext);
 
-            personRepository.Add(new Person { Id = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
-            personRepository.Add(new Person { Id = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
-            personRepository.Add(new Person { Id = 3, FirstName = "Bar", LastName = "Tester", Gender = Gender.Male, Status = Status.Living });
+            personRepository.Add(new Person { PersonId = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
+            personRepository.Add(new Person { PersonId = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
+            personRepository.Add(new Person { PersonId = 3, FirstName = "Bar", LastName = "Tester", Gender = Gender.Male, Status = Status.Living });
 
             dbContext.SaveChanges();
         }
@@ -50,7 +50,7 @@ namespace DotNetCore.Data.Test
 
             Assert.NotNull(personRepository);
             Assert.NotNull(person);
-            Assert.Equal(1, person.Id);
+            Assert.Equal(1, person.PersonId);
             Assert.Equal("Test", person.FirstName);
         }
 
@@ -83,19 +83,19 @@ namespace DotNetCore.Data.Test
 
             var person2 = personRepository.GetById(1);
 
-            Assert.Equal(1, person.Id);
+            Assert.Equal(1, person.PersonId);
             Assert.Null(person2);
         }
 
         [Fact]
         public void GenericRepository_GetAll_ReturnsListOfPerson()
         {
-            var people = personRepository.GetAll().OrderBy(m => m.Id).ToList();
+            var people = personRepository.GetAll().OrderBy(m => m.PersonId).ToList();
 
             Assert.Equal(3, people.Count);
-            Assert.Equal(1, people[0].Id);
-            Assert.Equal(2, people[1].Id);
-            Assert.Equal(3, people[2].Id);
+            Assert.Equal(1, people[0].PersonId);
+            Assert.Equal(2, people[1].PersonId);
+            Assert.Equal(3, people[2].PersonId);
         }
 
         [Fact]
@@ -104,8 +104,8 @@ namespace DotNetCore.Data.Test
             var people = personRepository.GetList(m => m.Status == Status.Living, m => m.OrderBy(o => o.LastName).ThenBy(o => o.FirstName)).ToList();
 
             Assert.Equal(2, people.Count);
-            Assert.Equal(3, people[0].Id);
-            Assert.Equal(2, people[1].Id);
+            Assert.Equal(3, people[0].PersonId);
+            Assert.Equal(2, people[1].PersonId);
         }
 
     }

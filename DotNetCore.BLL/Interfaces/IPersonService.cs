@@ -15,7 +15,7 @@ namespace DotNetCore.BLL.Interfaces
         void Delete(Person person);
 
         Person GetById(int id);
-        Person GetByIdNoTracking(int id);
+        //Person GetByIdNoTracking(int id);
 
         IQueryable<Person> GetAll();
         IQueryable<Person> GetList(Expression<Func<Person, bool>> predicate = null,

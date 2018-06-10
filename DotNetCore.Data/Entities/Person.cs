@@ -1,12 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using DotNetCore.Data.Database;
 using DotNetCore.Data.Enums;
 
 namespace DotNetCore.Data.Entities
 {
-    public class Person : Entity //IEntity, IDisposable
+    public class Person : Entity
     {
-        public Person() {}
+        [Key]
+        public int PersonId { get; set; }
 
         [MaxLength(255)]
         public string FirstName { get; set; }
@@ -27,5 +30,8 @@ namespace DotNetCore.Data.Entities
         public int? DeathYear { get; set; }
 
         public Status Status { get; set; }
+
+        [ForeignKey("PersonId")]
+        public ICollection<Event> Events { get; set; } = new List<Event>();
     }
 }

@@ -8,8 +8,8 @@ namespace DotNetCore.Data.Database
     {
         public void Dispose() { }
 
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         public DateTime? CreatedDate { get; set; }
 

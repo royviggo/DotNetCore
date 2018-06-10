@@ -22,9 +22,9 @@ namespace DotNetCore.Data.Test
             dbFactory = new DbFactory(options);
             unitOfWork = new UnitOfWork(dbFactory);
 
-            unitOfWork.PersonRepository.Add(new Person { Id = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
-            unitOfWork.PersonRepository.Add(new Person { Id = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
-            unitOfWork.PersonRepository.Add(new Person { Id = 3, FirstName = "Bar", LastName = "Tester", Gender = Gender.Male, Status = Status.Living });
+            unitOfWork.PersonRepository.Add(new Person { PersonId = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
+            unitOfWork.PersonRepository.Add(new Person { PersonId = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
+            unitOfWork.PersonRepository.Add(new Person { PersonId = 3, FirstName = "Bar", LastName = "Tester", Gender = Gender.Male, Status = Status.Living });
 
             unitOfWork.Save();
         }
@@ -54,7 +54,7 @@ namespace DotNetCore.Data.Test
             var person = unitOfWork.PersonRepository.GetById(1);
 
             Assert.NotNull(person);
-            Assert.Equal(1, person.Id);
+            Assert.Equal(1, person.PersonId);
             Assert.Equal("Test", person.FirstName);
         }
     }
