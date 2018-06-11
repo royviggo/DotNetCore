@@ -2,6 +2,7 @@
 using DotNetCore.Data.Entities;
 using DotNetCore.Data.Enums;
 using DotNetCore.Data.Interfaces;
+using DotNetCore.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -17,13 +18,13 @@ namespace DotNetCore.Data.Test
 
         private IDbFactory dbFactory;
         private DotNetCoreContext dbContext;
-        private IGenericRepository<Person> personRepository;
+        private IPersonRepository personRepository;
 
         public GenericRepositoryTests()
         {
             dbFactory = new DbFactory(options);
             dbContext = dbFactory.GetDbContext();
-            personRepository = new GenericRepository<Person>(dbContext);
+            personRepository = new PersonRepository(dbContext);
 
             personRepository.Add(new Person { PersonId = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
             personRepository.Add(new Person { PersonId = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
@@ -34,8 +35,8 @@ namespace DotNetCore.Data.Test
 
         public void Dispose()
         {
-            foreach (var person in personRepository.GetAll())
-                personRepository.Delete(person);
+            foreach (var person in personRepository.GetAllInclude())
+                personRepository.Remove(person);
 
             dbContext.SaveChanges();
 
@@ -46,7 +47,7 @@ namespace DotNetCore.Data.Test
         [Fact]
         public void GenericRepository_GetPerson_ReturnsPerson()
         {
-            var person = personRepository.GetById(1);
+            var person = personRepository.Get(1);
 
             Assert.NotNull(personRepository);
             Assert.NotNull(person);
@@ -57,7 +58,7 @@ namespace DotNetCore.Data.Test
         [Fact]
         public void GenericRepository_UpdatePerson_ReturnsPerson()
         {
-            var person = personRepository.GetById(1);
+            var person = personRepository.Get(1);
 
             person.LastName = "Testing";
             person.Gender = Gender.Male;
@@ -65,7 +66,7 @@ namespace DotNetCore.Data.Test
 
             dbContext.SaveChanges();
 
-            var person2 = personRepository.GetById(1);
+            var person2 = personRepository.Get(1);
 
             Assert.Equal("Testing", person.LastName);
             Assert.Equal(Gender.Male, person.Gender);
@@ -75,13 +76,13 @@ namespace DotNetCore.Data.Test
         [Fact]
         public void GenericRepository_DeletePerson_ReturnsNull()
         {
-            var person = personRepository.GetById(1);
+            var person = personRepository.Get(1);
 
-            personRepository.Delete(person);
+            personRepository.Remove(person);
 
             dbContext.SaveChanges();
 
-            var person2 = personRepository.GetById(1);
+            var person2 = personRepository.Get(1);
 
             Assert.Equal(1, person.PersonId);
             Assert.Null(person2);
@@ -90,7 +91,7 @@ namespace DotNetCore.Data.Test
         [Fact]
         public void GenericRepository_GetAll_ReturnsListOfPerson()
         {
-            var people = personRepository.GetAll().OrderBy(m => m.PersonId).ToList();
+            var people = personRepository.GetAllInclude().OrderBy(m => m.PersonId).ToList();
 
             Assert.Equal(3, people.Count);
             Assert.Equal(1, people[0].PersonId);
@@ -101,7 +102,7 @@ namespace DotNetCore.Data.Test
         [Fact]
         public void GenericRepository_GetList_ReturnsListOfPerson()
         {
-            var people = personRepository.GetList(m => m.Status == Status.Living, m => m.OrderBy(o => o.LastName).ThenBy(o => o.FirstName)).ToList();
+            var people = personRepository.Find(m => m.Status == Status.Living).OrderBy(o => o.LastName).ThenBy(o => o.FirstName).ToList();
 
             Assert.Equal(2, people.Count);
             Assert.Equal(3, people[0].PersonId);

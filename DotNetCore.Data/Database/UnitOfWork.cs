@@ -1,6 +1,7 @@
 ﻿using System;
 using DotNetCore.Data.Interfaces;
 using DotNetCore.Data.Entities;
+using DotNetCore.Data.Repositories;
 
 namespace DotNetCore.Data.Database
 {
@@ -19,8 +20,8 @@ namespace DotNetCore.Data.Database
         private IGenericRepository<EventType> _eventTypeRepository;
         public IGenericRepository<EventType> EventTypeRepository => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbContext));
 
-        private IGenericRepository<Person> _personRepository;
-        public IGenericRepository<Person> PersonRepository => _personRepository ?? (_personRepository = new GenericRepository<Person>(DbContext));
+        private IPersonRepository _personRepository;
+        public IPersonRepository PersonRepository => _personRepository ?? (_personRepository = new PersonRepository(DbContext));
 
         private IGenericRepository<Place> _placeRepository;
         public IGenericRepository<Place> PlaceRepository => _placeRepository ?? (_placeRepository = new GenericRepository<Place>(DbContext));

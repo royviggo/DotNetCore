@@ -31,8 +31,8 @@ namespace DotNetCore.Data.Test
 
         public void Dispose()
         {
-            foreach (var person in unitOfWork.PersonRepository.GetAll())
-                unitOfWork.PersonRepository.Delete(person);
+            foreach (var person in unitOfWork.PersonRepository.GetAllInclude())
+                unitOfWork.PersonRepository.Remove(person);
 
             unitOfWork.Save();
 
@@ -51,7 +51,7 @@ namespace DotNetCore.Data.Test
         [Fact]
         public void UnitOfWork_GetPerson_ReturnsPerson()
         {
-            var person = unitOfWork.PersonRepository.GetById(1);
+            var person = unitOfWork.PersonRepository.Get(1);
 
             Assert.NotNull(person);
             Assert.Equal(1, person.PersonId);

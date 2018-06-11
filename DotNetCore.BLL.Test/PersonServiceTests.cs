@@ -70,7 +70,7 @@ namespace DotNetCore.BLL.Test
             person.Gender = Gender.Male;
             person.Status = Status.Living;
 
-            personService.Update(person);
+            unitOfWork.Save();
 
             var person2 = personService.GetById(1);
 
@@ -106,7 +106,7 @@ namespace DotNetCore.BLL.Test
         [Fact]
         public void PersonService_GetList_ReturnsListOfPerson()
         {
-            var people = personService.GetList(m => m.Status == Status.Living, m => m.OrderBy(o => o.LastName).ThenBy(o => o.FirstName)).ToList();
+            var people = personService.GetList(m => m.Status == Status.Living).OrderBy(o => o.LastName).ThenBy(o => o.FirstName).ToList();
 
             Assert.Equal(2, people.Count);
             Assert.Equal(3, people[0].PersonId);

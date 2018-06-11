@@ -1,7 +1,7 @@
-﻿using DotNetCore.Data.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using DotNetCore.Data.Database;
 
 namespace DotNetCore
 {
@@ -14,9 +14,7 @@ namespace DotNetCore
                 .Options;
 
             var unitOfWork = new UnitOfWork(new DbFactory(options));
-            var persons = unitOfWork.PersonRepository.GetAll()
-                                    .Include(e => e.Events).ThenInclude(et => et.EventType)
-                                    .Include(e => e.Events).ThenInclude(p => p.Place);
+            var persons = unitOfWork.PersonRepository.GetAllInclude();
 
             foreach (var person in persons)
             {

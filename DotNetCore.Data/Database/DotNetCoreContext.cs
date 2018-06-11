@@ -31,17 +31,6 @@ namespace DotNetCore.Data.Database
                 d.OwnsOne(c => c.DateTo);
             });
 
-            //modelBuilder.Entity<Person>()
-            //    .HasMany(p => p.Events)
-            //    .WithOne(e => e.Person)
-            //    .HasForeignKey(e => e.PersonId)
-            //    .IsRequired();
-
-            //modelBuilder.Entity<Event>()
-            //    .HasOne(e => e.Person)
-            //    .WithMany(p => p.Events)
-            //    .IsRequired();
-
             modelBuilder.Entity<Event>()
                 .HasOne(e => e.EventType);
 

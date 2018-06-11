@@ -22,7 +22,7 @@ namespace DotNetCore.Data.Models
 
         public static string ToMonthName(this int month)
         {
-            return GetMonths().ContainsKey(month) ? MonthName.GetMonths()[month] : "";
+            return GetMonths().ContainsKey(month) ? GetMonths()[month] : "";
         }
 
     }

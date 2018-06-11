@@ -2,10 +2,8 @@
 using DotNetCore.Data.Entities;
 using DotNetCore.Data.Interfaces;
 using System;
-
-using Microsoft.EntityFrameworkCore.Query;
-using System.Linq;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace DotNetCore.BLL.Services
 {
@@ -29,15 +27,9 @@ namespace DotNetCore.BLL.Services
             _unitOfWork.Save();
         }
 
-        public void Update(Person person)
-        {
-            _unitOfWork.PersonRepository.Update(person);
-            _unitOfWork.Save();
-        }
-
         public void Delete(Person person)
         {
-            _unitOfWork.PersonRepository.Delete(person);
+            _unitOfWork.PersonRepository.Remove(person);
             _unitOfWork.Save();
         }
 
@@ -47,30 +39,23 @@ namespace DotNetCore.BLL.Services
             if (person == null)
                 throw (new ArgumentException());
 
-            _unitOfWork.PersonRepository.Delete(person);
+            _unitOfWork.PersonRepository.Remove(person);
             _unitOfWork.Save();
         }
 
         public Person GetById(int id)
         {
-            return _unitOfWork.PersonRepository.GetById(id);
+            return _unitOfWork.PersonRepository.Get(id);
         }
 
-        //public Person GetByIdNoTracking(int id)
-        //{
-        //    return _unitOfWork.PersonRepository.GetByIdNoTracking(id);
-        //}
-
-        public IQueryable<Person> GetAll()
+        public IEnumerable<Person> GetAll()
         {
-            return _unitOfWork.PersonRepository.GetAll();
+            return _unitOfWork.PersonRepository.GetAllInclude();
         }
 
-        public IQueryable<Person> GetList(Expression<Func<Person, bool>> predicate = null,
-                                    Func<IQueryable<Person>, IOrderedQueryable<Person>> orderBy = null,
-                                   Func<IQueryable<Person>, IIncludableQueryable<Person, object>> include = null)
+        public IEnumerable<Person> GetList(Expression<Func<Person, bool>> predicate)
         {
-            return _unitOfWork.PersonRepository.GetList(predicate, orderBy, include);
+            return _unitOfWork.PersonRepository.Find(predicate);
         }
     }
 }
