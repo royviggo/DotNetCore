@@ -15,16 +15,16 @@ namespace DotNetCore.Data.Database
         public DotNetCoreContext DbContext { get; }
 
         private IGenericRepository<Event> _eventRepository;
-        public IGenericRepository<Event> EventRepository => _eventRepository ?? (_eventRepository = new GenericRepository<Event>(DbContext));
+        public IGenericRepository<Event> Events => _eventRepository ?? (_eventRepository = new GenericRepository<Event>(DbContext));
 
         private IGenericRepository<EventType> _eventTypeRepository;
-        public IGenericRepository<EventType> EventTypeRepository => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbContext));
+        public IGenericRepository<EventType> EventTypes => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbContext));
 
         private IPersonRepository _personRepository;
-        public IPersonRepository PersonRepository => _personRepository ?? (_personRepository = new PersonRepository(DbContext));
+        public IPersonRepository Persons => _personRepository ?? (_personRepository = new PersonRepository(DbContext));
 
         private IGenericRepository<Place> _placeRepository;
-        public IGenericRepository<Place> PlaceRepository => _placeRepository ?? (_placeRepository = new GenericRepository<Place>(DbContext));
+        public IGenericRepository<Place> Places => _placeRepository ?? (_placeRepository = new GenericRepository<Place>(DbContext));
 
         public void Save()
         {

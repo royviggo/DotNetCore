@@ -23,13 +23,13 @@ namespace DotNetCore.BLL.Services
 
         public void Create(Person person)
         {
-            _unitOfWork.PersonRepository.Add(person);
+            _unitOfWork.Persons.Add(person);
             _unitOfWork.Save();
         }
 
         public void Delete(Person person)
         {
-            _unitOfWork.PersonRepository.Remove(person);
+            _unitOfWork.Persons.Remove(person);
             _unitOfWork.Save();
         }
 
@@ -39,23 +39,23 @@ namespace DotNetCore.BLL.Services
             if (person == null)
                 throw (new ArgumentException());
 
-            _unitOfWork.PersonRepository.Remove(person);
+            _unitOfWork.Persons.Remove(person);
             _unitOfWork.Save();
         }
 
         public Person GetById(int id)
         {
-            return _unitOfWork.PersonRepository.Get(id);
+            return _unitOfWork.Persons.Get(id);
         }
 
         public IEnumerable<Person> GetAll()
         {
-            return _unitOfWork.PersonRepository.GetAllInclude();
+            return _unitOfWork.Persons.GetAllInclude();
         }
 
         public IEnumerable<Person> GetList(Expression<Func<Person, bool>> predicate)
         {
-            return _unitOfWork.PersonRepository.Find(predicate);
+            return _unitOfWork.Persons.Find(predicate);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace DotNetCore
                 .Options;
 
             var unitOfWork = new UnitOfWork(new DbFactory(options));
-            var persons = unitOfWork.PersonRepository.GetAllInclude();
+            var persons = unitOfWork.Persons.GetAllInclude();
 
             foreach (var person in persons)
             {

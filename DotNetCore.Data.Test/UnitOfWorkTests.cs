@@ -22,17 +22,17 @@ namespace DotNetCore.Data.Test
             dbFactory = new DbFactory(options);
             unitOfWork = new UnitOfWork(dbFactory);
 
-            unitOfWork.PersonRepository.Add(new Person { PersonId = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
-            unitOfWork.PersonRepository.Add(new Person { PersonId = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
-            unitOfWork.PersonRepository.Add(new Person { PersonId = 3, FirstName = "Bar", LastName = "Tester", Gender = Gender.Male, Status = Status.Living });
+            unitOfWork.Persons.Add(new Person { PersonId = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
+            unitOfWork.Persons.Add(new Person { PersonId = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
+            unitOfWork.Persons.Add(new Person { PersonId = 3, FirstName = "Bar", LastName = "Tester", Gender = Gender.Male, Status = Status.Living });
 
             unitOfWork.Save();
         }
 
         public void Dispose()
         {
-            foreach (var person in unitOfWork.PersonRepository.GetAllInclude())
-                unitOfWork.PersonRepository.Remove(person);
+            foreach (var person in unitOfWork.Persons.GetAllInclude())
+                unitOfWork.Persons.Remove(person);
 
             unitOfWork.Save();
 
@@ -51,7 +51,7 @@ namespace DotNetCore.Data.Test
         [Fact]
         public void UnitOfWork_GetPerson_ReturnsPerson()
         {
-            var person = unitOfWork.PersonRepository.Get(1);
+            var person = unitOfWork.Persons.Get(1);
 
             Assert.NotNull(person);
             Assert.Equal(1, person.PersonId);
