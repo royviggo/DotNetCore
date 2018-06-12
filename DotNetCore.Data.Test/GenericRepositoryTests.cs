@@ -23,8 +23,8 @@ namespace DotNetCore.Data.Test
         public GenericRepositoryTests()
         {
             dbFactory = new DbFactory(options);
-            dbContext = dbFactory.GetDbContext();
-            personRepository = new PersonRepository(dbContext);
+            dbContext = dbFactory.Context();
+            personRepository = new PersonRepository(dbFactory);
 
             personRepository.Add(new Person { PersonId = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
             personRepository.Add(new Person { PersonId = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });

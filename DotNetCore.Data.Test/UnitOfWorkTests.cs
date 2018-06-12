@@ -31,7 +31,7 @@ namespace DotNetCore.Data.Test
 
         public void Dispose()
         {
-            foreach (var person in unitOfWork.Persons.GetAllInclude())
+            foreach (var person in unitOfWork.Persons.GetAll())
                 unitOfWork.Persons.Remove(person);
 
             unitOfWork.Save();

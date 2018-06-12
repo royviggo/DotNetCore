@@ -22,12 +22,12 @@ namespace DotNetCore.Data.Database
             _dbContext?.Dispose();
         }
 
-        public DotNetCoreContext GetDbContext()
+        public DotNetCoreContext Context()
         {
             return _dbContext ?? (_dbContext = new DotNetCoreContext());
         }
 
-        public DotNetCoreContext GetDbContext(DbContextOptions<DotNetCoreContext> options)
+        public DotNetCoreContext Context(DbContextOptions<DotNetCoreContext> options)
         {
             return _dbContext ?? (_dbContext = new DotNetCoreContext(options));
         }

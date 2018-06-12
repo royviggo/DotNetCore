@@ -9,31 +9,32 @@ namespace DotNetCore.Data.Database
     {
         public UnitOfWork(IDbFactory dbFactory)
         {
-            DbContext = dbFactory.GetDbContext();
+            DbFactory = dbFactory;
         }
 
-        public DotNetCoreContext DbContext { get; }
+        public IDbFactory DbFactory { get; }
 
         private IGenericRepository<Event> _eventRepository;
-        public IGenericRepository<Event> Events => _eventRepository ?? (_eventRepository = new GenericRepository<Event>(DbContext));
+        public IGenericRepository<Event> Events => _eventRepository ?? (_eventRepository = new GenericRepository<Event>(DbFactory));
 
         private IGenericRepository<EventType> _eventTypeRepository;
-        public IGenericRepository<EventType> EventTypes => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbContext));
+        public IGenericRepository<EventType> EventTypes => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbFactory));
 
         private IPersonRepository _personRepository;
-        public IPersonRepository Persons => _personRepository ?? (_personRepository = new PersonRepository(DbContext));
+        public IPersonRepository Persons => _personRepository ?? (_personRepository = new PersonRepository(DbFactory));
 
         private IGenericRepository<Place> _placeRepository;
-        public IGenericRepository<Place> Places => _placeRepository ?? (_placeRepository = new GenericRepository<Place>(DbContext));
+        public IGenericRepository<Place> Places => _placeRepository ?? (_placeRepository = new GenericRepository<Place>(DbFactory));
 
         public void Save()
         {
-            DbContext.SaveChanges();
+            DbFactory.Context().SaveChanges();
         }
 
         public void Dispose()
         {
-            DbContext.Dispose();
+            DbFactory.Context().Dispose();
+            DbFactory.Dispose();
         }
     }
 }

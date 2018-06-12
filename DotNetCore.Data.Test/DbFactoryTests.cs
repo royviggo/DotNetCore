@@ -25,7 +25,7 @@ namespace DotNetCore.Data.Test
         {
             var dbFactory = new DbFactory();
 
-            Assert.IsAssignableFrom<DotNetCoreContext>(dbFactory.GetDbContext());
+            Assert.IsAssignableFrom<DotNetCoreContext>(dbFactory.Context());
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace DotNetCore.Data.Test
                 .Options;
 
             var dbFactory = new DbFactory(options);
-            Assert.IsAssignableFrom<DotNetCoreContext>(dbFactory.GetDbContext());
+            Assert.IsAssignableFrom<DotNetCoreContext>(dbFactory.Context());
         }
     }
 
