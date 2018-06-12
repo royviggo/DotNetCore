@@ -1,6 +1,5 @@
 ﻿using DotNetCore.Data.Database;
 using DotNetCore.Data.Entities;
-using DotNetCore.Data.Enums;
 using DotNetCore.Data.Interfaces;
 using DotNetCore.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,96 +16,89 @@ namespace DotNetCore.Data.Test
            .Options;
 
         private IDbFactory dbFactory;
-        private DotNetCoreContext dbContext;
-        private IPersonRepository personRepository;
+        private IGenericRepository<Place> repository;
 
         public GenericRepositoryTests()
         {
             dbFactory = new DbFactory(options);
-            dbContext = dbFactory.Context();
-            personRepository = new PersonRepository(dbFactory);
+            repository = new GenericRepository<Place>(dbFactory);
 
-            personRepository.Add(new Person { PersonId = 1, FirstName = "Test", LastName = "Tester", Gender = Gender.Unknown, Status = Status.Unknown });
-            personRepository.Add(new Person { PersonId = 2, FirstName = "Foo", LastName = "Tester", Gender = Gender.Female, Status = Status.Living });
-            personRepository.Add(new Person { PersonId = 3, FirstName = "Bar", LastName = "Tester", Gender = Gender.Male, Status = Status.Living });
+            repository.Add(new Place { PlaceId = 1, Name = "Place 1" });
+            repository.Add(new Place { PlaceId = 2, Name = "Place 2" });
+            repository.Add(new Place { PlaceId = 3, Name = "Place 3" });
 
-            dbContext.SaveChanges();
+            dbFactory.Context().SaveChanges();
         }
 
         public void Dispose()
         {
-            foreach (var person in personRepository.GetAllInclude())
-                personRepository.Remove(person);
+            foreach (var place in repository.GetAll())
+                repository.Remove(place);
 
-            dbContext.SaveChanges();
+            dbFactory.Context().SaveChanges();
 
-            personRepository.Dispose();
+            repository.Dispose();
             dbFactory.Dispose();
         }
 
         [Fact]
-        public void GenericRepository_GetPerson_ReturnsPerson()
+        public void GenericRepository_Get_ReturnsPlace()
         {
-            var person = personRepository.Get(1);
+            var place = repository.Get(1);
 
-            Assert.NotNull(personRepository);
-            Assert.NotNull(person);
-            Assert.Equal(1, person.PersonId);
-            Assert.Equal("Test", person.FirstName);
+            Assert.NotNull(repository);
+            Assert.NotNull(place);
+            Assert.Equal(1, place.PlaceId);
+            Assert.Equal("Place 1", place.Name);
         }
 
         [Fact]
         public void GenericRepository_UpdatePerson_ReturnsPerson()
         {
-            var person = personRepository.Get(1);
+            var place = repository.Get(1);
 
-            person.LastName = "Testing";
-            person.Gender = Gender.Male;
-            person.Status = Status.Living;
+            place.Name = "Testing";
 
-            dbContext.SaveChanges();
+            dbFactory.Context().SaveChanges();
 
-            var person2 = personRepository.Get(1);
+            var place2 = repository.Get(1);
 
-            Assert.Equal("Testing", person.LastName);
-            Assert.Equal(Gender.Male, person.Gender);
-            Assert.Equal(Status.Living, person.Status);
+            Assert.Equal("Testing", place.Name);
         }
 
         [Fact]
         public void GenericRepository_DeletePerson_ReturnsNull()
         {
-            var person = personRepository.Get(1);
+            var place = repository.Get(1);
 
-            personRepository.Remove(person);
+            repository.Remove(place);
 
-            dbContext.SaveChanges();
+            dbFactory.Context().SaveChanges();
 
-            var person2 = personRepository.Get(1);
+            var place2 = repository.Get(1);
 
-            Assert.Equal(1, person.PersonId);
-            Assert.Null(person2);
+            Assert.Equal(1, place.PlaceId);
+            Assert.Null(place2);
         }
 
         [Fact]
         public void GenericRepository_GetAll_ReturnsListOfPerson()
         {
-            var people = personRepository.GetAllInclude().OrderBy(m => m.PersonId).ToList();
+            var people = repository.GetAll().OrderBy(m => m.PlaceId).ToList();
 
             Assert.Equal(3, people.Count);
-            Assert.Equal(1, people[0].PersonId);
-            Assert.Equal(2, people[1].PersonId);
-            Assert.Equal(3, people[2].PersonId);
+            Assert.Equal(1, people[0].PlaceId);
+            Assert.Equal(2, people[1].PlaceId);
+            Assert.Equal(3, people[2].PlaceId);
         }
 
         [Fact]
-        public void GenericRepository_GetList_ReturnsListOfPerson()
+        public void GenericRepository_Find_ReturnsListOfPerson()
         {
-            var people = personRepository.Find(m => m.Status == Status.Living).OrderBy(o => o.LastName).ThenBy(o => o.FirstName).ToList();
+            var people = repository.Find(m => m.PlaceId == 2).ToList();
 
-            Assert.Equal(2, people.Count);
-            Assert.Equal(3, people[0].PersonId);
-            Assert.Equal(2, people[1].PersonId);
+            Assert.Single(people);
+            Assert.Equal(2, people[0].PlaceId);
         }
 
     }
