@@ -17,11 +17,11 @@ namespace DotNetCore.Data.Database
         private IEventRepository _eventRepository;
         public IEventRepository Events => _eventRepository ?? (_eventRepository = new EventRepository(DbFactory));
 
-        private IGenericRepository<EventType> _eventTypeRepository;
-        public IGenericRepository<EventType> EventTypes => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbFactory));
-
         private IPersonRepository _personRepository;
         public IPersonRepository Persons => _personRepository ?? (_personRepository = new PersonRepository(DbFactory));
+
+        private IGenericRepository<EventType> _eventTypeRepository;
+        public IGenericRepository<EventType> EventTypes => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbFactory));
 
         private IGenericRepository<Place> _placeRepository;
         public IGenericRepository<Place> Places => _placeRepository ?? (_placeRepository = new GenericRepository<Place>(DbFactory));

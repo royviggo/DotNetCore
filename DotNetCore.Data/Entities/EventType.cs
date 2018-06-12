@@ -1,5 +1,4 @@
-﻿using DotNetCore.Data.Database;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DotNetCore.Data.Entities
 {

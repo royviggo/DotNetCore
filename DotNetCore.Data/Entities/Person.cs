@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DotNetCore.Data.Database;
 using DotNetCore.Data.Enums;
 
 namespace DotNetCore.Data.Entities

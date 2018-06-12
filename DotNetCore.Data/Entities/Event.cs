@@ -1,5 +1,4 @@
-﻿using DotNetCore.Data.Database;
-using DotNetCore.Data.Models;
+﻿using DotNetCore.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

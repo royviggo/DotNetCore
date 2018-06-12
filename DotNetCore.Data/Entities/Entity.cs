@@ -1,7 +1,7 @@
 ﻿using DotNetCore.Data.Interfaces;
 using System;
 
-namespace DotNetCore.Data.Database
+namespace DotNetCore.Data.Entities
 {
     public class Entity : IEntity, IDisposable
     {

@@ -13,11 +13,6 @@ namespace DotNetCore.Data.Database
         {
         }
 
-        public DbSet<EventType> EventTypes { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<Person> Persons { get; set; }
-        public DbSet<Place> Places { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Event>().ToTable("Event");
@@ -30,9 +25,6 @@ namespace DotNetCore.Data.Database
                 d.OwnsOne(c => c.DateFrom);
                 d.OwnsOne(c => c.DateTo);
             });
-
-            modelBuilder.Entity<Event>()
-                .HasOne(e => e.EventType);
 
             base.OnModelCreating(modelBuilder);
         }
