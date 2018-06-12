@@ -4,7 +4,7 @@ namespace DotNetCore.Data.Interfaces
 {
     public interface IUnitOfWork
     {
-        IGenericRepository<Event> Events { get; }
+        IEventRepository Events { get; }
         IGenericRepository<EventType> EventTypes { get; }
         IPersonRepository Persons { get; }
         IGenericRepository<Place> Places { get; }

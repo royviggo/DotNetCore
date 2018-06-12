@@ -14,8 +14,8 @@ namespace DotNetCore.Data.Database
 
         public IDbFactory DbFactory { get; }
 
-        private IGenericRepository<Event> _eventRepository;
-        public IGenericRepository<Event> Events => _eventRepository ?? (_eventRepository = new GenericRepository<Event>(DbFactory));
+        private IEventRepository _eventRepository;
+        public IEventRepository Events => _eventRepository ?? (_eventRepository = new EventRepository(DbFactory));
 
         private IGenericRepository<EventType> _eventTypeRepository;
         public IGenericRepository<EventType> EventTypes => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbFactory));

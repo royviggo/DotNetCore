@@ -25,6 +25,13 @@ namespace DotNetCore
                     Console.WriteLine("     {0} {1}: {2} - {3} - {4}", e.EventTypeId, e.EventType?.Name, e.Date, e.Place?.Name, e.Description ?? "");
                 }
             }
+
+            var events = unitOfWork.Events.GetByPersonId(1);
+
+            foreach (var e in events)
+            {
+                Console.WriteLine("{0}, {1} | {2} {3} {4}", e.EventId, e.EventType.EventTypeId, e.EventType.Name, e.Date, e.Place?.Name);
+            }
         }
     }
 }
