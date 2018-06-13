@@ -17,7 +17,8 @@ namespace DotNetCore.Data.Repositories
             return Db.Context().Set<Event>()
                                .Include(e => e.Person)
                                .Include(e => e.EventType)
-                               .Include(e => e.Place);
+                               .Include(e => e.Place)
+                               .AsNoTracking();
         }
 
         public IEnumerable<Event> GetByPersonId(int personId)

@@ -33,7 +33,7 @@ namespace DotNetCore.Data.Test
 
         public void Dispose()
         {
-            foreach (var person in personRepository.GetAllInclude())
+            foreach (var person in personRepository.GetAll())
                 personRepository.Remove(person);
 
             dbFactory.Context().SaveChanges();

@@ -1,16 +1,14 @@
-﻿using DotNetCore.Data.Entities;
+﻿using System;
 
 namespace DotNetCore.Data.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         IEventRepository Events { get; }
+        IEventTypeRepository EventTypes { get; }
         IPersonRepository Persons { get; }
-
-        IGenericRepository<EventType> EventTypes { get; }
-        IGenericRepository<Place> Places { get; }
+        IPlaceRepository Places { get; }
 
         void Save();
-        void Dispose();
     }
 }

@@ -1,10 +1,10 @@
-﻿using DotNetCore.Data.Database;
+﻿using System;
+using DotNetCore.Data.Database;
 
 namespace DotNetCore.Data.Interfaces
 {
-    public interface IDbFactory
+    public interface IDbFactory : IDisposable
     {
-        void Dispose();
         DotNetCoreContext Context();
     }
 }   

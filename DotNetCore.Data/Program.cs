@@ -32,6 +32,20 @@ namespace DotNetCore
             {
                 Console.WriteLine("{0}, {1} | {2} {3} {4}", e.EventId, e.EventType.EventTypeId, e.EventType.Name, e.Date, e.Place?.Name);
             }
+
+            var eventTypes = unitOfWork.EventTypes.GetAll();
+
+            foreach (var et in eventTypes)
+            {
+                Console.WriteLine("{0} | {1} - {2}", et.EventTypeId, et.Name, et.Sentence);
+            }
+
+            var places = unitOfWork.Places.GetAll();
+
+            foreach (var p in places)
+            {
+                Console.WriteLine("{0} | {1}", p.PlaceId, p.Name);
+            }
         }
     }
 }

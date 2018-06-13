@@ -1,10 +1,9 @@
-﻿using System;
-using DotNetCore.Data.Interfaces;
+﻿using DotNetCore.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCore.Data.Database
 {
-    public class DbFactory : IDisposable, IDbFactory
+    public class DbFactory : IDbFactory
     {
         private DotNetCoreContext _dbContext;
 

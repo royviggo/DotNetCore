@@ -27,6 +27,11 @@ namespace DotNetCore.BLL.Services
             _unitOfWork.Save();
         }
 
+        public void Update(Person person)
+        {
+            _unitOfWork.Persons.Update(person);
+        }
+
         public void Delete(Person person)
         {
             _unitOfWork.Persons.Remove(person);

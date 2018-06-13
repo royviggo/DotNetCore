@@ -1,11 +1,9 @@
-﻿using System;
-using DotNetCore.Data.Interfaces;
-using DotNetCore.Data.Entities;
+﻿using DotNetCore.Data.Interfaces;
 using DotNetCore.Data.Repositories;
 
 namespace DotNetCore.Data.Database
 {
-    public class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         public UnitOfWork(IDbFactory dbFactory)
         {
@@ -17,14 +15,14 @@ namespace DotNetCore.Data.Database
         private IEventRepository _eventRepository;
         public IEventRepository Events => _eventRepository ?? (_eventRepository = new EventRepository(DbFactory));
 
+        private IEventTypeRepository _eventTypeRepository;
+        public IEventTypeRepository EventTypes => _eventTypeRepository ?? (_eventTypeRepository = new EventTypeRepository(DbFactory));
+
         private IPersonRepository _personRepository;
         public IPersonRepository Persons => _personRepository ?? (_personRepository = new PersonRepository(DbFactory));
 
-        private IGenericRepository<EventType> _eventTypeRepository;
-        public IGenericRepository<EventType> EventTypes => _eventTypeRepository ?? (_eventTypeRepository = new GenericRepository<EventType>(DbFactory));
-
-        private IGenericRepository<Place> _placeRepository;
-        public IGenericRepository<Place> Places => _placeRepository ?? (_placeRepository = new GenericRepository<Place>(DbFactory));
+        private IPlaceRepository _placeRepository;
+        public IPlaceRepository Places => _placeRepository ?? (_placeRepository = new PlaceRepository(DbFactory));
 
         public void Save()
         {
@@ -33,8 +31,8 @@ namespace DotNetCore.Data.Database
 
         public void Dispose()
         {
-            DbFactory.Context().Dispose();
             DbFactory.Dispose();
+
         }
     }
 }
